@@ -6,7 +6,41 @@
         xmlns:local="clr-namespace:MyFirstMVVM"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+    </Window.Resources>
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="0.8*" />
+        </Grid.ColumnDefinitions>
+
+        <ListBox Grid.Column="0" ItemsSource="{Binding Phrases}"
+                 SelectedItem="{Binding SelectedBad}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="5">
+                        <TextBlock FontSize="18" Text="{Binding Path=What}" />
+                        <TextBlock Text="{Binding Path=Action}" />
+                        <TextBlock Text="{Binding Path=Who}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <StackPanel Grid.Column="1" DataContext="{Binding SelectedBad}">
+            <TextBlock Text="Выбранный элемент"  />
+            <TextBlock Text="Что?" />
+            <TextBox Text="{Binding What, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="Действие" />
+            <TextBox Text="{Binding Action, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="Кто?" />
+            <TextBox Text="{Binding Who, UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
     </Grid>
 </Window>
